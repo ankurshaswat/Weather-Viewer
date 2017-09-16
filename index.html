@@ -1,0 +1,114 @@
+<!doctype html>
+
+
+
+
+<html>
+
+<head>
+    <title>Weather Man</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <style type="text/css">
+        html,
+        body {
+            height: 100%
+        }
+
+        .container {
+            background-image: url("background.jpg");
+            background-position: center;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            padding-top: 230px;
+            color: white;
+        }
+
+        .center {
+            text-align: center
+        }
+
+        h1 {
+
+            font-size: 5.5em;
+        }
+
+        lead {
+            text-decoration: bold;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+
+        .alert {
+            display: none;
+            margin-top: 20px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row center">
+            <div class="col-md-6 col-md-offset-3">
+                <h1>Weather For You</h1>
+                <div class='lead'>Enter the name of the city you want weather for.</div>
+                <form>
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" id="city" placeholder="Enter Your City">
+                        <div class="alert alert-success">
+                        </div>
+                        <div class="alert alert-warning" id="warn">
+                            booooooooooooooooooo
+
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+        $(".btn").click(function(event) {
+                    event.preventDefault();
+                    //  alert("hi");
+                    $(".alert").hide();
+                    var city = $(".form-control").val();
+                    //alert("here");
+                    if (city == '') {
+                        $("#warn").html("Enter Something").fadeIn();
+                    } else {
+                        $.get("scraper.php?city=" + city, function(data) {
+
+                            if (data.indexOf("Warning") < 0){
+                                $(".alert-success").html(data).fadeIn();
+                            } else {
+                                $(".alert-warning").html("Enter Correct Name").fadeIn();
+                            }
+
+                            //alert("here2");
+                        });
+                      }
+                    });
+    </script>
+</body>
+
+</html>
